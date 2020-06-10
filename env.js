@@ -1,7 +1,3 @@
-let {
-	HOME,
-} = process.env;
-
 /*
 per-environment config, would usually not be in repo	
 */

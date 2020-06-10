@@ -1,7 +1,3 @@
-let {
-	HOME,
-} = process.env;
-
 let root = __dirname;
 
 module.exports = function() {
