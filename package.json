@@ -1,0 +1,30 @@
+{
+	"name": "sve-app",
+	"description": "svelte-view-engine example app",
+	"version": "1.0.0",
+	"private": true,
+	"dependencies": {
+		"@babel/core": "^7.6.4",
+		"@babel/preset-env": "^7.6.3",
+		"@babel/runtime": "^7.7.4",
+		"core-js": "^3.4.2",
+		"express": "^4.17.1",
+		"flowfs": "^4.0.0",
+		"lodash.merge": "^4.6.2",
+		"node-sass": "^4.14.1",
+		"rollup": "^1.25.0",
+		"rollup-plugin-commonjs": "^10.1.0",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-svelte": "^5.1.0",
+		"svelte": "^3.23.2",
+		"svelte-view-engine": "^12.2.1",
+		"terser": "^4.3.9",
+		"yargs": "~6.5.0"
+	},
+	"devDependencies": {
+		"chokidar": "^3.0.2"
+	},
+	"scripts": {
+		"start": "node src/main.js"
+	}
+}

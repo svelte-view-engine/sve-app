@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<head>
+		${head}
+		<style>
+			${include ./global.css}
+		</style>
+		<link rel="stylesheet" href="${cssPath}">
+	</head>
+	<body>
+		${html}
+		<script src="${jsPath}"></script>
+		<script>
+			props = ${props};
+			
+			new ${name}({
+				target: document.body,
+				hydrate: true,
+				props,
+			});
+		</script>
+	</body>
+</html>

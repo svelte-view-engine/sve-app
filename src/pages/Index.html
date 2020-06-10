@@ -1,0 +1,19 @@
+<script>
+import payload from "svelte-view-engine/payload";
+
+export let a;
+
+let {
+	b,
+} = payload.get();
+</script>
+
+<svelte:head>
+	<title>svelte-view-engine example</title>
+</svelte:head>
+
+<style>
+
+</style>
+
+{a} {b}
