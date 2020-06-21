@@ -3,7 +3,7 @@ let buildSsr = require("./buildSsrComponent");
 let buildDom = require("./buildDomComponent");
 
 function readStream(stream) {
-	stdin.setEncoding("utf8");
+	stream.setEncoding("utf8");
 	
 	return new Promise(function(resolve, reject) {
 		let res = "";
