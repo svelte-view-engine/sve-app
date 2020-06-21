@@ -1,22 +1,36 @@
-let yargs = require("yargs");
 let fs = require("flowfs");
 let buildSsr = require("./buildSsrComponent");
 let buildDom = require("./buildDomComponent");
 
+function readStream(stream) {
+	stdin.setEncoding("utf8");
+	
+	return new Promise(function(resolve, reject) {
+		let res = "";
+		
+		stream.on("data", function(chunk) {
+			res += chunk;
+		});
+		
+		stream.on("end", function() {
+			resolve(res);
+		});
+		
+		stream.on("error", function(error) {
+			reject(error);
+		});
+	});
+}
+
 (async function() {
 	try {
-		let [json] = yargs.argv._;
-		
-		json = json.replace(/^'/, "");
-		json = json.replace(/'$/, "");
-		
 		let {
 			name,
 			path,
 			buildPath,
 			options,
 			useCache,
-		} = JSON.parse(json);
+		} = JSON.parse(await readStream(process.stdin));
 		
 		let buildFile = fs(buildPath);
 		let cache = {};
