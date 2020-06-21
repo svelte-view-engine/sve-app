@@ -5,13 +5,18 @@ let buildDom = require("./buildDomComponent");
 
 (async function() {
 	try {
+		let [json] = yargs.argv._;
+		
+		json = json.replace(/^'/, "");
+		json = json.replace(/'$/, "");
+		
 		let {
 			name,
 			path,
 			buildPath,
 			options,
 			useCache,
-		} = JSON.parse(yargs.argv._[0]);
+		} = JSON.parse(json);
 		
 		let buildFile = fs(buildPath);
 		let cache = {};
