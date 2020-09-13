@@ -9,7 +9,7 @@ let sass = require("./sass");
 
 let pathStartRe = /([A-Z]:|\/)/;
 
-module.exports = async function(path, name, options, cache) {
+module.exports = async function(path, name, options, cache, buildDir) {
 	let inputOptions = {
 		input: path,
 		cache,
@@ -63,26 +63,19 @@ module.exports = async function(path, name, options, cache) {
 	
 	let outputOptions = {
 		name,
-		format: options.transpile ? "cjs" : "iife",
+		format: options.transpile ? "es" : "iife",
+		dir: buildDir.path
 	};
 	
 	let bundle = await rollup.rollup(inputOptions);
 	
 	let {output} = await bundle.generate(outputOptions);
-	
-	let js = output[0];
-	
-	if (options.transpile) {
-		js = await babel(path, name, js.code);
-	}
-	
-	if (options.minify) {
-		js = terser.minify(js.code);
-	}
+	await bundle.write(outputOptions);
+
 	
 	return {
 		cache: options.cache && bundle.cache,
-		js,
+		js: output[0],
 		
 		watchFiles: bundle.watchFiles.map(function(path) {
 			/*

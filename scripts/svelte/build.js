@@ -41,11 +41,11 @@ function readStream(stream) {
 			cache.client = client.cache;
 			cache.server = server.cache;
 		}
-		
-		let server = await buildSsr(path, options, cache.server);
-		let client = await buildDom(path, name, options, cache.client);
-		
+
 		await buildFile.parent.mkdirp();
+
+		let server = await buildSsr(path, options, cache.server);
+		let client = await buildDom(path, name, options, cache.client, buildFile.parent);
 		
 		await buildFile.writeJson({
 			server,

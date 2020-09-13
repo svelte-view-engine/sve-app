@@ -3,9 +3,18 @@ import payload from "svelte-view-engine/payload";
 
 export let a;
 
-let {
-	b,
-} = payload.get();
+// Commented out because it was crashing
+// let {
+// 	b,
+// } = payload.get();
+
+let Nav;
+import {onMount} from "svelte";
+onMount(_ => {
+	console.log("Mounted");
+	import("../components/Nav.html").then(res => Nav = res.default)
+})
+
 </script>
 
 <svelte:head>
@@ -15,5 +24,8 @@ let {
 <style>
 
 </style>
-
-{a} {b}
+{#if Nav}
+<svelte:component this="{Nav}" />
+{:else}
+to be loaded
+{/if}

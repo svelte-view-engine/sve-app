@@ -17,7 +17,7 @@ let config = {
 	init: true,
 	watch: true,
 	liveReload: true,
-	transpile: false,
+	transpile: true,
 	minify: true,
 	clientCss: true,
 	assetsPrefix: "/assets/",
