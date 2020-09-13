@@ -1,42 +1,23 @@
 let http = require("http");
 let express = require("express");
 let svelteViewEngine = require("svelte-view-engine");
+let config = require("../config");
 
 let app = express();
+let engine = svelteViewEngine(config.svelteViewEngine);
+let {dir, type, buildDir} = config.svelteViewEngine;
 
-app.enable("trust proxy");
+app.engine(type, engine.render);
+app.set("view engine", type);
+app.set("views", dir);
 
-let root = __dirname + "/..";
+app.use("/assets", express.static(buildDir));
 
-let config = {
-	template: `${root}/src/template.html`,
-	dir: `${root}/src/pages`,
-	type: "html",
-	buildScript: `${root}/scripts/svelte/build.js`,
-	buildDir: `${root}/build/pages`,
-	init: true,
-	watch: true,
-	liveReload: true,
-	transpile: false,
-	minify: true,
-	clientCss: true,
-	assetsPrefix: "/assets/",
-	dev: true,
-};
-
-let engine = svelteViewEngine(config);
-
-app.engine(config.type, engine.render);
-app.set("view engine", config.type);
-app.set("views", config.dir);
-
-app.use("/assets", express.static(config.buildDir));
-
-app.get("/", function(req, res) {
+app.get("/", function(req, res, next) {
 	res.render("Index", {
 		a: 1,
 		b: 2,
 	});
 });
 
-http.createServer(app).listen(3000);
+http.Server(app).listen(config.port);
